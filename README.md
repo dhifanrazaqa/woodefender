@@ -1,10 +1,16 @@
-# woodefender
+# WooDefender
 
 <p align="center">
   <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/c6946fe4-0046-4191-8d64-e50cceda8d47" width="500">
 </p>
 
 In 2023, there were 457,895 complaints of violence against women, with the majority (339,782 cases) being gender-based. Then came Online Gender-Based Violence (GBV), including 440 cases reported in the previous year by LBH APIK Jakarta. Of these, 49 cases were non-consensual intimate imagery (NCII) which uses deepfake AI technology to create fake content with the victim's face in the nude for revenge porn, defamation, and sexual violence. Through an app, a campaign is underway to boost women's preparedness and awareness for handling potential deepfake revenge porn in the coming years. WooDefender lets users digitally watermark their photos and detect edited photos and those created by AI. A built-in community helps users to encourage others to report accounts that create or spread fake content. WooDefender also offers understanding and legal guidance, helping victims know what legal steps to take. Additionally, victims can access a step-by-step rehabilitation program within the app.
+
+<b>Team Member:</b> <br>
+[Hustler: Fajar Ramadhan](https://github.com/FajarRamadhanBBX) <br>
+[Hipster: Muhammad Rezka Al Maghribi](https://github.com/Almaghribiyya) <br>
+[Hipster: Huda Rasyad Wicaksono](https://github.com/masuden0000) <br>
+[Hacker: Dhi'fan Razaqa](https://github.com/dhifanrazaqa) <br>
 
 
 <b>Onboarding, Login, and Register</b>
@@ -33,7 +39,7 @@ In 2023, there were 457,895 complaints of violence against women, with the major
 </p>
 
 
-<b>Profile</b<
+<b>Profile</b>
 <p align="center">
   <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/eab79f12-95c6-44e5-9636-b1508e0b88d8" width="250">
 </p>
