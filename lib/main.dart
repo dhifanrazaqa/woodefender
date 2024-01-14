@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:woodefender/screens/auth/login_screen.dart';
 import 'package:woodefender/screens/home_screen.dart';
 import 'package:woodefender/screens/onboard_screen.dart';
+import 'package:woodefender/screens/classification/select_clf_screen.dart';
 import 'package:woodefender/services/auth_service.dart';
 import 'package:woodefender/services/like_service.dart';
 import 'package:woodefender/services/post_service.dart';
@@ -85,6 +86,7 @@ class _MyAppState extends State<MyApp> {
         routes: {
           '/profile': (context) => const MainScreen(pageIndex: 2,),
           '/main': (context) => const MainScreen(pageIndex: 1,),
+          '/select': (context) => const SelectClassificationScreen()
         },
       ),
     );

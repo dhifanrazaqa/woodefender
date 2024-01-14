@@ -168,6 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               onPressed: () async {
                 await AuthService().signOut();
+                Navigator.of(context).popUntil((route) => route.isFirst);
                 Navigator.of(context).pushReplacement(
                   MaterialPageRoute(
                     builder: (context) => const LoginScreen(),

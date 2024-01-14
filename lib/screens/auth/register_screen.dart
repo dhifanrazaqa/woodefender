@@ -278,7 +278,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         _isLoadingGoogle = true;
                       });
                       await AuthService().signInWithGoogle();
-                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => const SuccesScreen(type: "Login",)));
                       setState(() {

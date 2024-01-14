@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:woodefender/screens/classification/classification_screen.dart';
 import 'package:woodefender/screens/classification/select_clf_screen.dart';
+import 'package:woodefender/screens/history/classification_hist_screen.dart';
+import 'package:woodefender/screens/history/watermark_hist_screen.dart';
 import 'package:woodefender/screens/watermarking/home_wm_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -169,6 +171,11 @@ class HomeScreen extends StatelessWidget {
                             backgroundColor: const MaterialStatePropertyAll(Colors.black),
                           ),
                           onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const WmScreen(),
+                              ),
+                            );
                           },
                           child: Text(
                             'Try Now!',
@@ -232,7 +239,13 @@ class HomeScreen extends StatelessWidget {
                             fixedSize: MaterialStatePropertyAll(Size(110, 5)),
                             backgroundColor: const MaterialStatePropertyAll(Colors.black),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const ClassificationHistScreen(),
+                              ),
+                            );
+                          },
                           child: Text(
                             'Classification',
                             style: TextStyle(
@@ -253,7 +266,13 @@ class HomeScreen extends StatelessWidget {
                             fixedSize: MaterialStatePropertyAll(Size(110, 5)),
                             backgroundColor: const MaterialStatePropertyAll(Colors.black),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const WatermarkHistScreen(),
+                              ),
+                            );
+                          },
                           child: Text(
                             'Watermark',
                             style: TextStyle(

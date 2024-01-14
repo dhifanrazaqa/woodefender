@@ -1,32 +1,20 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
-import 'package:woodefender/helper/image_classification_helper.dart';
-import 'package:woodefender/screens/classification/result_clf_screen.dart';
-import 'package:woodefender/services/history_service.dart';
-import 'package:woodefender/services/image_service.dart';
+import 'package:woodefender/screens/watermarking/embed/embed_wm_screen.dart';
 
-class ClassificationScreen extends StatefulWidget {
-  const ClassificationScreen({
-    super.key,
-    required this.imageFile,
-  });
-  final imageFile;
+class EmbedOriScreen extends StatefulWidget {
+  const EmbedOriScreen({super.key});
 
   @override
-  State<ClassificationScreen> createState() => _ClassificationScreenState();
+  State<EmbedOriScreen> createState() => _EmbedOriScreenState();
 }
 
-class _ClassificationScreenState extends State<ClassificationScreen> {
-  ImageClassificationHelper? imageClassificationHelper;
+class _EmbedOriScreenState extends State<EmbedOriScreen> {
   final imagePicker = ImagePicker();
   String? imagePath;
-  Uint8List? elaImg;
-  img.Image? image;
-  Map<String, double>? classification;
   bool cameraIsAvailable = Platform.isAndroid || Platform.isIOS;
+
   bool _isLoading = false;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -36,9 +24,6 @@ class _ClassificationScreenState extends State<ClassificationScreen> {
 
   @override
   void initState() {
-    imageClassificationHelper = ImageClassificationHelper();
-    imageClassificationHelper!.initHelper();
-    imagePath = widget.imageFile;
     _titleController.addListener(checkAllFieldsFilled);
     super.initState();
   }
@@ -52,35 +37,6 @@ class _ClassificationScreenState extends State<ClassificationScreen> {
     }
   }
 
-  // Clean old results when press some take picture button
-  void cleanResult() {
-    imagePath = null;
-    image = null;
-    elaImg = null;
-    classification = null;
-    setState(() {});
-  }
-
-  // Process picked image
-  Future<void> processImage() async {
-    if (imagePath != null) {
-      // Read image bytes from file
-      final imageData = elaImg;
-
-      // Decode image using package:image/image.dart (https://pub.dev/image)
-      image = img.decodeImage(imageData!);
-      setState(() {});
-      classification = await imageClassificationHelper?.inferenceImage(image!);
-      setState(() {});
-    }
-  }
-
-  @override
-  void dispose() {
-    imageClassificationHelper?.close();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -89,20 +45,146 @@ class _ClassificationScreenState extends State<ClassificationScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Preview',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold
-            ),
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  const Text(
+                    'Select the image',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    '(Original)',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey[600]
+                    ),
+                  ),
+                  const SizedBox(height: 12,),
+                  Container(
+                    color: Colors.red,
+                    width: 120,
+                    height: 5,
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  const Text(
+                    'Select the image',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    '(Watermark)',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey[600]
+                    ),
+                  ),
+                  const SizedBox(height: 12,),
+                  Container(
+                    color: Colors.grey[300],
+                    width: 100,
+                    height: 5,
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  const Text(
+                    'Choose method',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    '(Fragile/Robust)',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey[600]
+                    ),
+                  ),
+                  const SizedBox(height: 12,),
+                  Container(
+                    color: Colors.grey[300],
+                    width: 100,
+                    height: 5,
+                  )
+                ],
+              ),
+            ],
           ),
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 18.0),
             child: Column(
               children: [
+                if(imagePath == null)
+                Padding(
+                  padding: EdgeInsets.only(top: height * 0.2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Embed Feature',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
+                      const Text(
+                        'Select the original image',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.grey
+                        )
+                      ),
+                      const SizedBox(height: 30,),
+                      if (cameraIsAvailable)
+                        InkWell(
+                          onTap: () async {
+                            final result = await imagePicker.pickImage(
+                              source: ImageSource.camera,
+                            );
+          
+                            imagePath = result?.path;
+                            setState(() {
+                              
+                            });
+                          },
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset('assets/images/takepicture.png'),
+                        ),
+                      const SizedBox(height: 14,),
+                      InkWell(
+                        onTap: () async {
+                          final result = await imagePicker.pickImage(
+                            source: ImageSource.gallery,
+                          );
+          
+                          imagePath = result?.path;
+                          setState(() {
+                            
+                          });
+                        },
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset('assets/images/selectgallery.png'),
+                      ),
+                    ],
+                  ),
+                ),
+                if(imagePath != null)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -189,32 +271,12 @@ class _ClassificationScreenState extends State<ClassificationScreen> {
                           ),
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) { 
-                              setState(() {
-                                _isLoading = true;
-                              });
-
-                              elaImg = await sendImage(imagePath!);
-                              
-                              await processImage();
-
-                              setState(() {
-                                _isLoading = false;
-                              });
-                              
-                              if(classification != null) {
-                                final result = classification!.entries.toList();
-                                
-                                await HistoryService().addHistoryClassification(
-                                  _titleController.text,
-                                  result[0].value * 100,
-                                  result[1].value * 100
-                                );
-
-                                Navigator.of(context).pushReplacement(
+                              if(imagePath != null) {
+                                Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => ResultClassificationScreen(
-                                      image: widget.imageFile,
-                                      classification: result,
+                                    builder: (context) => EmbedWmScreen(
+                                      imageOri: imagePath,
+                                      title: _titleController.text,
                                     ),
                                   ),
                                 );
@@ -233,7 +295,7 @@ class _ClassificationScreenState extends State<ClassificationScreen> {
                       ],
                     ),
                   ],
-                ),
+                )
               ],
             ),
           ),

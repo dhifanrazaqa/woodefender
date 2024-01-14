@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:woodefender/screens/community/add_comm_screen.dart';
+import 'package:woodefender/screens/main_screen.dart';
 
 class ResultClassificationScreen extends StatelessWidget {
   const ResultClassificationScreen({
@@ -334,7 +335,11 @@ class ResultClassificationScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     Navigator.popUntil(context, ModalRoute.withName('/'));
-                    // Navigator.of(context).pop();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const MainScreen(pageIndex: 1,),
+                      ),
+                    );
                   },
                   child: Text(
                     'Done',
