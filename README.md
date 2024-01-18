@@ -6,6 +6,9 @@
 
 In 2023, there were 457,895 complaints of violence against women, with the majority (339,782 cases) being gender-based. Then came Online Gender-Based Violence (GBV), including 440 cases reported in the previous year by LBH APIK Jakarta. Of these, 49 cases were non-consensual intimate imagery (NCII) which uses deepfake AI technology to create fake content with the victim's face in the nude for revenge porn, defamation, and sexual violence. Through an app, a campaign is underway to boost women's preparedness and awareness for handling potential deepfake revenge porn in the coming years. WooDefender lets users digitally watermark their photos and detect edited photos and those created by AI. A built-in community helps users to encourage others to report accounts that create or spread fake content. WooDefender also offers understanding and legal guidance, helping victims know what legal steps to take. Additionally, victims can access a step-by-step rehabilitation program within the app.
 
+<b>How To Install</b> <br>
+Go to the release page and download apk v1.0.0 then install it on your Android device! If you want to build the apk manually you need to add the Firebase configuration file.
+
 <b>Team Member:</b> <br>
 [Hustler: Fajar Ramadhan](https://github.com/FajarRamadhanBBX) <br>
 [Hipster: Muhammad Rezka Al Maghribi](https://github.com/Almaghribiyya) <br>
@@ -38,6 +41,31 @@ In 2023, there were 457,895 complaints of violence against women, with the major
   <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/740933c9-f874-4b0a-b18c-9ac7d3cd75a6" width="250">
 </p>
 
+<b>Watermark</b>
+<b>Embed Watermark</b>
+<p align="center">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/616fc487-09d4-4ea5-aaa4-9edd895bc3dc" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/7d742b5d-f8b0-4a1b-92a5-a6a892317031" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/a4654626-f6ea-43e8-9c6e-30fba820e4a9" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/6e91c04b-ced8-4c12-b0b0-f3dfbfc3cca4" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/c0b27028-283e-4535-983d-29012d4c208b" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/7165fee2-17ed-4086-84c9-dced3a955031" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/a9e04e62-9f9f-4b4c-b912-379ec9a47d1a" width="250">
+</p>
+
+<b>Extract Watermark</b>
+<p align="center">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/616fc487-09d4-4ea5-aaa4-9edd895bc3dc" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/fa4687f2-d4c0-464a-9d6e-f69fceee0f6b" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/a27d322c-294a-478c-bb33-a33c9e9708c5" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/c348a767-adb0-472b-8bb5-18996ea04a63" width="250">
+</p>
+
+<b>History</b>
+<p align="center">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/49e3234d-aa01-4550-ba17-b21fbbb98576" width="250">
+  <img src="https://github.com/dhifanrazaqa/woodefender/assets/67745986/2d484239-da37-4cd2-ae4a-1cbc774eb51c" width="250">
+</p>
 
 <b>Profile</b>
 <p align="center">
