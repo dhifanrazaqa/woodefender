@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CommentContainer extends StatefulWidget {
   const CommentContainer({
@@ -14,6 +15,7 @@ class CommentContainer extends StatefulWidget {
 class _CommentContainerState extends State<CommentContainer> {
   @override
   Widget build(BuildContext context) {
+    final postedAt = DateTime.now().difference(widget.comment.createdAt);
     double width = MediaQuery.of(context).size.width;
 
     return Container(
@@ -48,10 +50,22 @@ class _CommentContainerState extends State<CommentContainer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${widget.comment.user?.username}', style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold
-                ),),
+                Row(
+                  children: [
+                    Text('${widget.comment.user?.username}', style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold
+                    ),),
+                    const SizedBox(width: 12,),
+                    Text(
+                      timeago.format(DateTime.now().subtract(postedAt), locale: 'en_short'),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w700
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 5,),
                 Text(
                   widget.comment.message,

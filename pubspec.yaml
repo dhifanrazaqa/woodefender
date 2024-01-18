@@ -53,6 +53,22 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   change_app_package_name: ^1.1.0
   path_provider: ^2.1.2
+  image_cropper: ^5.0.1
+  flutter_native_splash: ^2.3.9
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/splash.png
+  color_dark: "#121212"
+  image_dark: assets/images/splash.png
+
+  android_12:
+    image: assets/images/splash.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/images/splash.png
+    icon_background_color_dark: "#121212"
+
+  web: false
 
 flutter_launcher_icons:
   android: true

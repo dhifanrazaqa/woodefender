@@ -20,6 +20,7 @@ class _SuccesScreenState extends State<SuccesScreen> {
     super.initState();
 
     Timer(Duration(seconds: 5), () {
+      Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MainScreen(pageIndex: 0,)),
@@ -33,7 +34,10 @@ class _SuccesScreenState extends State<SuccesScreen> {
       child: Scaffold(
         body: Center(
           child: widget.type == 'Daftar' ?
-          Image.asset('assets/images/Body-daftar.png')
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Image.asset('assets/images/Body-daftar.png'),
+          )
           :
           Image.asset('assets/images/Body-login.png')
         )

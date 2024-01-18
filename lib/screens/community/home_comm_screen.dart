@@ -44,7 +44,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
               }, child: Column(
                 children: [
                   Text(
-                    'Untuk Anda',
+                    'For You',
                     style: TextStyle(
                       color: type != 'Report' ? Colors.black : Colors.grey
                     ),
@@ -71,7 +71,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
               }, child: Column(
                 children: [
                   Text(
-                    'Lapor',
+                    'Report',
                     style: TextStyle(
                       color: type == 'Report' ? Colors.black : Colors.grey
                     ),

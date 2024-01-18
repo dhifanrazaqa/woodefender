@@ -42,6 +42,7 @@ class _ClassificationHistScreenState extends State<ClassificationHistScreen> {
                 );
               } else {
                 List<Map<String, dynamic>> classificationHistory = _historyService.classifications;
+                classificationHistory.sort((a, b) => (b['createdAt'] as DateTime).compareTo(a['createdAt'] as DateTime));
                 return ListView.builder(
                   itemCount: classificationHistory.length,
                   itemBuilder: (context, index) {

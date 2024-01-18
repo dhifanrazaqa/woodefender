@@ -16,8 +16,8 @@ class _SuccessWmScreenState extends State<SuccessWmScreen> {
     super.initState();
 
     Timer(Duration(seconds: 3), () {
-      Navigator.popUntil(context, ModalRoute.withName('/'));
-      Navigator.of(context).push(
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const MainScreen(pageIndex: 1,),
         ),

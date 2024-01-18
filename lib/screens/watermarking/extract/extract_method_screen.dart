@@ -1,15 +1,22 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:woodefender/screens/watermarking/extract/extract_preview_screen.dart';
 import 'package:woodefender/screens/watermarking/success_wm_screen.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ExtractMethodScreen extends StatefulWidget {
   const ExtractMethodScreen({
     super.key,
     required this.image,
     required this.imageWm,
+    required this.title,
+    required this.wm_url,
   });
   final image;
   final imageWm;
+  final title;
+  final wm_url;
 
   @override
   State<ExtractMethodScreen> createState() => _ExtractMethodScreenState();
@@ -24,6 +31,20 @@ class _ExtractMethodScreenState extends State<ExtractMethodScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
+    Future<dynamic> saveImageToGallery() async {
+      final String dir = (await getApplicationDocumentsDirectory()).path;
+      final imagePath = '$dir/file_name${DateTime.now()}.png';
+      final capturedFile = File(imagePath);
+      await capturedFile.writeAsBytes(widget.imageWm);
+
+      final result = await ImageGallerySaver.saveFile(
+        capturedFile.path,
+        name: widget.title
+      );
+
+      return result;
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -112,7 +133,6 @@ class _ExtractMethodScreenState extends State<ExtractMethodScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: height * 0.2,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -146,7 +166,28 @@ class _ExtractMethodScreenState extends State<ExtractMethodScreen> {
                   Column(
                     children: [
                       const Text(
-                        'Watermark Image',
+                        'Original Watermark',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                          ),
+                          borderRadius: BorderRadius.circular(8)
+                        ),
+                        width: width * 0.38,
+                        height: height * 0.25,
+                        padding: EdgeInsets.all(8),
+                        child: Image.network(widget.wm_url,
+                          fit: BoxFit.cover,
+                        )
+                      ),
+                      const Text(
+                        'Current Watermark',
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w700
@@ -170,8 +211,7 @@ class _ExtractMethodScreenState extends State<ExtractMethodScreen> {
                   ),
                 ] 
               ),
-              const Spacer(),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 60,),
               ElevatedButton(
                 style: ButtonStyle(
                   foregroundColor: MaterialStatePropertyAll(Colors.black),
@@ -185,8 +225,16 @@ class _ExtractMethodScreenState extends State<ExtractMethodScreen> {
                   fixedSize: MaterialStatePropertyAll(Size(width, 40)),
                   backgroundColor: const MaterialStatePropertyAll(Colors.white)
                 ),
-                onPressed: () {
-              
+                onPressed: () async {
+                  final msg = await saveImageToGallery();
+                  print(msg);
+                  if(msg['isSuccess']) {
+                    const snackBar = SnackBar(
+                      content: Text('Image saved to gallery!'),
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +265,14 @@ class _ExtractMethodScreenState extends State<ExtractMethodScreen> {
                   backgroundColor: const MaterialStatePropertyAll(Colors.white)
                 ),
                 onPressed: () {
-              
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ExtractPreviewScreen(
+                        imageWm: widget.imageWm,
+                        wm_url: widget.wm_url,
+                      ),
+                    ),
+                  );
                 },
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -247,7 +302,7 @@ class _ExtractMethodScreenState extends State<ExtractMethodScreen> {
                   backgroundColor: const MaterialStatePropertyAll(Colors.black)
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(
+                  Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => SuccessWmScreen(),
                     ),

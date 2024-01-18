@@ -60,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Daftar',
+                    'Sign Up',
                     style: TextStyle(
                       height: 1,
                       fontSize: 31,
@@ -72,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     alignment: WrapAlignment.spaceAround,
                     children: [
                       Text(
-                        'Ayo berpartisipasi dalam ',
+                        "Let's participate in ",
                         style: TextStyle(
                           height: 1,
                           fontSize: 15,
@@ -108,10 +108,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             },
                             decoration: const InputDecoration(
-                              labelText: 'Nama',
+                              labelText: 'Full Name',
                               contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                               labelStyle: TextStyle(
-                                color: Colors.black
+                                color: Colors.grey
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black)
@@ -144,7 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               labelText: 'Email',
                               contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                               labelStyle: TextStyle(
-                                color: Colors.black
+                                color: Colors.grey
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black)
@@ -178,7 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               labelText: 'Password',
                               contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                               labelStyle: TextStyle(
-                                color: Colors.black
+                                color: Colors.grey
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black)
@@ -229,7 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                     },
                     child: Text(
-                      'Daftar',
+                      'Sign Up',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: daftarTextBtnColor,
@@ -278,7 +278,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         _isLoadingGoogle = true;
                       });
                       await AuthService().signInWithGoogle();
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.of(context).popUntil((route) => route.isFirst);
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) => const SuccesScreen(type: "Login",)));
                       setState(() {
@@ -290,7 +290,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: [
                         Image.asset('assets/images/google logo.png', width: 24,),
                         const Text(
-                          'Masuk dengan Google',
+                          'Login With Google',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black,
@@ -306,7 +306,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     alignment: WrapAlignment.spaceAround,
                     children: [
                       const Text(
-                        'Sudah mempunyai akun? ',
+                        'Already have an account? ',
                         style: TextStyle(
                           height: 1,
                           fontSize: 14,
@@ -323,7 +323,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           );
                         },
                         child: const Text(
-                          'Masuk',
+                          'Sign In',
                           style: TextStyle(
                             height: 1,
                             color: Colors.blue,

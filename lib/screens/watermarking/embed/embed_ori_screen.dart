@@ -2,9 +2,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:woodefender/screens/watermarking/embed/embed_wm_screen.dart';
+import 'package:woodefender/screens/watermarking/embed/embed_wmrob_screen.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class EmbedOriScreen extends StatefulWidget {
-  const EmbedOriScreen({super.key});
+  const EmbedOriScreen({
+    super.key,
+    required this.method,
+  });
+  final method;
 
   @override
   State<EmbedOriScreen> createState() => _EmbedOriScreenState();
@@ -37,6 +43,35 @@ class _EmbedOriScreenState extends State<EmbedOriScreen> {
     }
   }
 
+  Future _cropImage() async { 
+    if (imagePath != null) { 
+      CroppedFile? cropped = await ImageCropper().cropImage( 
+          sourcePath: imagePath!,
+          aspectRatioPresets:  
+               [ 
+                  CropAspectRatioPreset.square, 
+                  CropAspectRatioPreset.ratio3x2, 
+                  CropAspectRatioPreset.original, 
+                  CropAspectRatioPreset.ratio4x3, 
+                  CropAspectRatioPreset.ratio16x9 
+                ],
+          uiSettings: [ 
+            AndroidUiSettings( 
+                toolbarTitle: 'Crop', 
+                cropGridColor: Colors.black, 
+                initAspectRatio: CropAspectRatioPreset.original, 
+                lockAspectRatio: false), 
+            IOSUiSettings(title: 'Crop') 
+          ]); 
+  
+      if (cropped != null) { 
+        setState(() { 
+          imagePath = cropped.path; 
+        }); 
+      } 
+    } 
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -49,6 +84,30 @@ class _EmbedOriScreenState extends State<EmbedOriScreen> {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Column(
+                children: [
+                  const Text(
+                    'Choose method',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    '(Fragile/Robust)',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey[600]
+                    ),
+                  ),
+                  const SizedBox(height: 12,),
+                  Container(
+                    color: Colors.red,
+                    width: width * 0.3,
+                    height: 5,
+                  )
+                ],
+              ),
               Column(
                 children: [
                   const Text(
@@ -68,7 +127,7 @@ class _EmbedOriScreenState extends State<EmbedOriScreen> {
                   const SizedBox(height: 12,),
                   Container(
                     color: Colors.red,
-                    width: 120,
+                    width: width * 0.3,
                     height: 5,
                   )
                 ],
@@ -92,31 +151,7 @@ class _EmbedOriScreenState extends State<EmbedOriScreen> {
                   const SizedBox(height: 12,),
                   Container(
                     color: Colors.grey[300],
-                    width: 100,
-                    height: 5,
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  const Text(
-                    'Choose method',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  Text(
-                    '(Fragile/Robust)',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey[600]
-                    ),
-                  ),
-                  const SizedBox(height: 12,),
-                  Container(
-                    color: Colors.grey[300],
-                    width: 100,
+                    width: width * 0.3,
                     height: 5,
                   )
                 ],
@@ -272,14 +307,46 @@ class _EmbedOriScreenState extends State<EmbedOriScreen> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) { 
                               if(imagePath != null) {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => EmbedWmScreen(
-                                      imageOri: imagePath,
-                                      title: _titleController.text,
+                                if(widget.method == 'Robust') {
+                                  
+                                  CroppedFile? croppedFile = await ImageCropper().cropImage(
+                                    sourcePath: imagePath!,
+                                    aspectRatioPresets: [
+                                      CropAspectRatioPreset.square,
+                                    ],
+                                    uiSettings: [
+                                      AndroidUiSettings(
+                                        toolbarTitle: 'Cropper',
+                                        toolbarColor: Colors.deepOrange,
+                                        toolbarWidgetColor: Colors.white,
+                                        initAspectRatio: CropAspectRatioPreset.square,
+                                        lockAspectRatio: true
+                                      ),
+                                    ],
+                                  );
+
+                                  imagePath = croppedFile?.path;
+
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => EmbedWmRobScreen(
+                                        imageOri: imagePath,
+                                        title: _titleController.text,
+                                        method: widget.method,
+                                      ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => EmbedWmScreen(
+                                        imageOri: imagePath,
+                                        title: _titleController.text,
+                                        method: widget.method,
+                                      ),
+                                    ),
+                                  );
+                                }
                               }
                             }
                           },

@@ -8,10 +8,14 @@ class ExtractWmScreen extends StatefulWidget {
   const ExtractWmScreen({
     super.key,
     required this.wm_size,
-    required this.type
+    required this.type,
+    required this.title,
+    required this.wm_url
   });
   final wm_size;
   final type;
+  final title;
+  final wm_url;
 
   @override
   State<ExtractWmScreen> createState() => _ExtractWmScreenState();
@@ -211,11 +215,34 @@ class _ExtractWmScreenState extends State<ExtractWmScreen> {
                                   _isLoading = false;
                                 });
 
-                                Navigator.of(context).push(
+                                Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                     builder: (context) => ExtractMethodScreen(
                                       image: imagePath,
-                                      imageWm: img
+                                      imageWm: img,
+                                      title: widget.title,
+                                      wm_url: widget.wm_url
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                
+                                final img = await extrRobustWm(imagePath!);
+
+                                setState(() {
+                                  _isLoading = false;
+                                });
+
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => ExtractMethodScreen(
+                                      image: imagePath,
+                                      imageWm: img,
+                                      title: widget.title,
+                                      wm_url: widget.wm_url
                                     ),
                                   ),
                                 );

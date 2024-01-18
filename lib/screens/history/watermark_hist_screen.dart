@@ -42,6 +42,7 @@ class _WatermarkHistScreenState extends State<WatermarkHistScreen> {
                 );
               } else {
                 List<Map<String, dynamic>> watermarkHistory = _historyService.watermarks;
+                watermarkHistory.sort((a, b) => (b['createdAt'] as DateTime).compareTo(a['createdAt'] as DateTime));
                 return ListView.builder(
                   itemCount: watermarkHistory.length,
                   itemBuilder: (context, index) {

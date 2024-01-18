@@ -30,6 +30,30 @@ Future<Uint8List?> sendImage(String imagePath) async {
   }
 }
 
+Future<Uint8List?> getWm(String watermark) async {
+  print(watermark);
+  var body = json.encode({
+    'wm': watermark,
+  });
+  // Send the API request
+  var response = await http.post(
+    Uri.parse('https://woodefender.pythonanywhere.com/get_wm'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: body
+  );
+  print(response.statusCode);
+  // Handle the API response
+  if (response.statusCode == 200) {
+    var parse = jsonDecode(response.body);
+    var img = base64Decode(parse['result']);
+    return img;
+  } else {
+    print('Error');
+  }
+}
+
 Future<Uint8List?> addFragileWm(String imagePath1, String imagePath2) async {
   // Convert image to bytes
   var imageBytes1 = await File(imagePath1).readAsBytes();
@@ -60,17 +84,16 @@ Future<Uint8List?> addFragileWm(String imagePath1, String imagePath2) async {
   }
 }
 
-Future<Uint8List?> addRobustWm(String imagePath1, String imagePath2, String pw) async {
+Future<Uint8List?> addRobustWm(String imagePath1, Uint8List watermark) async {
   // Convert image to bytes
   var imageBytes1 = await File(imagePath1).readAsBytes();
-  var imageBytes2 = await File(imagePath2).readAsBytes();
   // Encode the bytes
   var base64Image1 = "data:image/png;base64,${base64Encode(imageBytes1)}";
-  var base64Image2 = "data:image/png;base64,${base64Encode(imageBytes2)}";
+  var base64Image2 = "data:image/png;base64,${base64Encode(watermark)}";
   var body = json.encode({
-    'image1': base64Image1,
-    'image2': base64Image2,
-    'pw': pw
+    'image': base64Image1,
+    'wm': base64Image2,
+    'pw': 7
   });
   // Send the API request
   var response = await http.post(
@@ -102,6 +125,33 @@ Future<Uint8List?> extrFragileWm(String imagePath) async {
   // Send the API request
   var response = await http.post(
     Uri.parse('https://woodefender.pythonanywhere.com/extract_image_frag'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: body
+  );
+
+  // Handle the API response
+  if (response.statusCode == 200) {
+    var parse = jsonDecode(response.body);
+    var img = base64Decode(parse['result']);
+    return img;
+  } else {
+    print('Error');
+  }
+}
+Future<Uint8List?> extrRobustWm(String imagePath) async {
+  // Convert image to bytes
+  var imageBytes = await File(imagePath).readAsBytes();
+  // Encode the bytes
+  var base64Image = "data:image/png;base64,${base64Encode(imageBytes)}";
+  var body = json.encode({
+    'image': base64Image,
+    'pw':7
+  });
+  // Send the API request
+  var response = await http.post(
+    Uri.parse('https://woodefender.pythonanywhere.com/extract_image_rob'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

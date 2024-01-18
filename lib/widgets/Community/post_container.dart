@@ -96,7 +96,7 @@ class _PostContainerState extends State<PostContainer> {
                     ),),
                     const SizedBox(height: 5,),
                     Text(
-                      timeago.format(DateTime.now().subtract(postedAt), locale: 'id'),
+                      timeago.format(DateTime.now().subtract(postedAt), locale: 'en'),
                       style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.w700
@@ -211,26 +211,26 @@ class _PostContainerState extends State<PostContainer> {
                     'assets/images/comment_ic.png',
                   ),
                   label: const Text(
-                    'Komen',
+                    'Comment',
                     style: TextStyle(
                       fontWeight: FontWeight.bold
                     ),
                   )
                 ),
-                TextButton.icon(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    overlayColor: MaterialStatePropertyAll(Colors.grey[200]),
-                    foregroundColor: MaterialStatePropertyAll(Colors.black)
-                  ),
-                  icon: const Icon(Icons.share),
-                  label: const Text(
-                    'Bagikan',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold
-                    ),
-                  )
-                ),
+                // TextButton.icon(
+                //   onPressed: () {},
+                //   style: ButtonStyle(
+                //     overlayColor: MaterialStatePropertyAll(Colors.grey[200]),
+                //     foregroundColor: MaterialStatePropertyAll(Colors.black)
+                //   ),
+                //   icon: const Icon(Icons.share),
+                //   label: const Text(
+                //     'Share',
+                //     style: TextStyle(
+                //       fontWeight: FontWeight.bold
+                //     ),
+                //   )
+                // ),
               ],
             ),
             const Divider(thickness: 2,),

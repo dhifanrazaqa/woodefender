@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:woodefender/services/auth_service.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class HistoryService {
   final CollectionReference _classificationCollection =
@@ -54,6 +57,7 @@ class HistoryService {
           'createdAt':  (doc['createdAt'] as Timestamp).toDate(),
           'type': doc['type'] ?? '',
           'wm_size': doc['wm_size'] ?? 0,
+          'wm_url': doc['wm_url'] ?? '',
           'userId': doc['userId'] ?? '',
         };
         _watermarks.add(watermark);
@@ -79,14 +83,29 @@ class HistoryService {
     }
   }
 
-  Future<void> addHistoryWatermark(String title, String type, String wmSize) async {
+  Future<String?> addImage(File? image) async {
     try {
+      Reference storageReference = FirebaseStorage.instance.ref().child('uploads/${DateTime.now().toString()}');
+
+      await storageReference.putFile(image!);
+      final imageUrl = await storageReference.getDownloadURL();
+
+      return imageUrl;
+    } on FirebaseException catch (e) {
+      print(e.message);
+    }
+  }
+
+  Future<void> addHistoryWatermark(String title, String type, String wmSize, File image) async {
+    try {
+      final wmUrl = await addImage(image);
       final currentUser = AuthService().getCurrentUserReference();
         await _watermarkCollection.add({
           'title': title,
           'createdAt':  DateTime.now(),
           'type': type,
           'wm_size': wmSize,
+          'wm_url': wmUrl,
           'userId': currentUser,
         });
     } catch (e) {

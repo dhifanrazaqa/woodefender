@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:woodefender/screens/watermarking/embed/embed_method_screen.dart';
 import 'package:woodefender/screens/watermarking/embed/embed_ori_screen.dart';
 import 'package:woodefender/screens/watermarking/extract/extract_select_screen.dart';
 import 'package:woodefender/screens/watermarking/extract/extract_wm_screen.dart';
@@ -77,7 +78,7 @@ class WmScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const EmbedOriScreen(),
+                              builder: (context) => const EmbedMethodScreen(),
                             ),
                           );
                         },

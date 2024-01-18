@@ -46,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
             NavigationDestination(
               icon: Image.asset(
-                'assets/images/logo.png',
+                'assets/images/logo-bottom.png',
                 height: 48
               ),
               label: 'WooDefender',

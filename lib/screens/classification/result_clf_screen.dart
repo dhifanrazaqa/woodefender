@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:woodefender/screens/authorities_screen.dart';
 import 'package:woodefender/screens/community/add_comm_screen.dart';
 import 'package:woodefender/screens/main_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ResultClassificationScreen extends StatelessWidget {
   const ResultClassificationScreen({
@@ -14,6 +14,14 @@ class ResultClassificationScreen extends StatelessWidget {
   });
   final image;
   final classification;
+
+  Future<void> _launchUrl(String url) async {
+    final Uri _url = Uri.parse(url);
+
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -231,12 +239,8 @@ class ResultClassificationScreen extends StatelessWidget {
                               fixedSize: MaterialStatePropertyAll(Size(110, 5)),
                               backgroundColor: const MaterialStatePropertyAll(Colors.black),
                             ),
-                            onPressed: () {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const SelectClassificationScreen(),
-                              //   ),
-                              // );
+                            onPressed: () async {
+                              await _launchUrl('https://stopncii.org/');
                             },
                             child: Text(
                               'Try Now!',
@@ -300,11 +304,11 @@ class ResultClassificationScreen extends StatelessWidget {
                               backgroundColor: const MaterialStatePropertyAll(Colors.black),
                             ),
                             onPressed: () {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const SelectClassificationScreen(),
-                              //   ),
-                              // );
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const AuthoritiesScreen(),
+                                ),
+                              );
                             },
                             child: Text(
                               'Try Now!',
@@ -334,8 +338,8 @@ class ResultClassificationScreen extends StatelessWidget {
                     backgroundColor: const MaterialStatePropertyAll(Colors.black),
                   ),
                   onPressed: () {
-                    Navigator.popUntil(context, ModalRoute.withName('/'));
-                    Navigator.of(context).push(
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => const MainScreen(pageIndex: 1,),
                       ),

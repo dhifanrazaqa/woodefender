@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Selamat Datang',
+                    'Welcome!',
                     style: TextStyle(
                       color: Colors.black,
                       height: 1,
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               labelText: 'Email',
                               contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                               labelStyle: TextStyle(
-                                color: Colors.black
+                                color: Colors.grey
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black)
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               labelText: 'Password',
                               contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                               labelStyle: TextStyle(
-                                color: Colors.black
+                                color: Colors.grey
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black)
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        'Lupa Password?',
+                        'Forgot Password?',
                         style: TextStyle(
                           color: Colors.black,
                           height: 1,
@@ -179,6 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       fixedSize: MaterialStatePropertyAll(Size(width, 40)),
+                      overlayColor: MaterialStatePropertyAll(Colors.grey[300]),
                       backgroundColor: MaterialStatePropertyAll(daftarBtnColor),
                     ),
                     onPressed: () async {
@@ -197,6 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                       
                         if (message!.contains('Success')) {
+                          Navigator.of(context).popUntil((route) => route.isFirst);
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) => const SuccesScreen(type: 'Login',),
@@ -211,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     },
                     child: Text(
-                      'Masuk',
+                      'Sign In',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: daftarTextBtnColor,
@@ -253,6 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       elevation: MaterialStatePropertyAll(2),
                       fixedSize: MaterialStatePropertyAll(Size(width, 40)),
+                      overlayColor: MaterialStatePropertyAll(Colors.grey[300]),
                       backgroundColor: const MaterialStatePropertyAll(Color.fromARGB(255, 255, 255, 255)),
                     ),
                     onPressed: () async {
@@ -272,7 +275,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Image.asset('assets/images/google logo.png', width: 24,),
                         const Text(
-                          'Masuk dengan Google',
+                          'Login With Google',
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black,
@@ -288,7 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: WrapAlignment.spaceAround,
                     children: [
                       const Text(
-                        'Belum mempunyai akun? ',
+                        "Don't have an account? ",
                         style: TextStyle(
                           height: 1,
                           fontSize: 14,
@@ -306,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                         child: const Text(
-                          'Daftar',
+                          'Sign Up',
                           style: TextStyle(
                             height: 1,
                             color: Colors.blue,

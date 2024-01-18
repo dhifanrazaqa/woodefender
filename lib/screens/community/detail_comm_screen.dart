@@ -39,7 +39,7 @@ class _DetailCommScreenState extends State<DetailCommScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Postingan',
+          'Post',
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 20
@@ -98,7 +98,7 @@ class _DetailCommScreenState extends State<DetailCommScreen> {
               child: TextField(
                 controller: commentController,
                 decoration: InputDecoration(
-                  hintText: 'Tambahkan komentar...',
+                  hintText: 'Add a comment...',
                 ),
               ),
             ),

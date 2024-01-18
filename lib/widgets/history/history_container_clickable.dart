@@ -8,11 +8,13 @@ class HistoryContainerClickable extends StatefulWidget {
     required this.createdAt,
     required this.type,
     required this.wm_size,
+    required this.wm_url,
   });
   final title;
   final createdAt;
   final type;
   final wm_size;
+  final wm_url;
 
   @override
   State<HistoryContainerClickable> createState() => _HistoryContainerClickableState();
@@ -31,6 +33,8 @@ class _HistoryContainerClickableState extends State<HistoryContainerClickable> {
             builder: (context) => ExtractWmScreen(
               type: widget.type,
               wm_size: widget.wm_size,
+              title: widget.title,
+              wm_url: widget.wm_url
             ),
           ),
         );

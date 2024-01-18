@@ -1,16 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:woodefender/screens/watermarking/embed/embed_method_screen.dart';
+import 'package:woodefender/screens/watermarking/embed/embed_final_screen.dart';
 
 class EmbedWmScreen extends StatefulWidget {
   const EmbedWmScreen({
     super.key,
     required this.imageOri,
     required this.title,
+    required this.method,
   });
   final imageOri;
   final title;
+  final method;
 
   @override
   State<EmbedWmScreen> createState() => _EmbedWmScreenState();
@@ -36,6 +38,30 @@ class _EmbedWmScreenState extends State<EmbedWmScreen> {
               Column(
                 children: [
                   const Text(
+                    'Choose method',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    '(Fragile/Robust)',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey[600]
+                    ),
+                  ),
+                  const SizedBox(height: 12,),
+                  Container(
+                    color: Colors.red,
+                    width: width * 0.3,
+                    height: 5,
+                  )
+                ],
+              ),
+              Column(
+                children: [
+                  const Text(
                     'Select the image',
                     style: TextStyle(
                       fontSize: 12,
@@ -52,7 +78,7 @@ class _EmbedWmScreenState extends State<EmbedWmScreen> {
                   const SizedBox(height: 12,),
                   Container(
                     color: Colors.red,
-                    width: 120,
+                    width: width * 0.3,
                     height: 5,
                   )
                 ],
@@ -76,31 +102,7 @@ class _EmbedWmScreenState extends State<EmbedWmScreen> {
                   const SizedBox(height: 12,),
                   Container(
                     color: Colors.red,
-                    width: 100,
-                    height: 5,
-                  )
-                ],
-              ),
-              Column(
-                children: [
-                  const Text(
-                    'Choose method',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  Text(
-                    '(Fragile/Robust)',
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey[600]
-                    ),
-                  ),
-                  const SizedBox(height: 12,),
-                  Container(
-                    color: Colors.grey[300],
-                    width: 100,
+                    width: width * 0.3,
                     height: 5,
                   )
                 ],
@@ -215,10 +217,11 @@ class _EmbedWmScreenState extends State<EmbedWmScreen> {
                               if(imagePath != null) {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => EmbedMethodScreen(
+                                    builder: (context) => EmbedFinalScreen(
                                       imageOri: widget.imageOri,
                                       imageWm: imagePath,
                                       title: widget.title,
+                                      method: widget.method,
                                     ),
                                   ),
                                 );

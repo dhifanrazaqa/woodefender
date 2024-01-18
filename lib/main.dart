@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => LikeService()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'WooDefender',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.white, 

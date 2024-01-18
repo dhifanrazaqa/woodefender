@@ -115,6 +115,7 @@ class _ExtractSelectScreenState extends State<ExtractSelectScreen> {
                 );
               } else {
                 List<Map<String, dynamic>> watermarkHistory = _historyService.watermarks;
+                watermarkHistory.sort((a, b) => (b['createdAt'] as DateTime).compareTo(a['createdAt'] as DateTime));
                 return ListView.builder(
                   itemCount: watermarkHistory.length,
                   itemBuilder: (context, index) {
@@ -137,6 +138,7 @@ class _ExtractSelectScreenState extends State<ExtractSelectScreen> {
                             createdAt: DateFormat('dd MMMM yyyy, kk:mm a').format(_history['createdAt']),
                             type: _history['type'],
                             wm_size: _history['wm_size'],
+                            wm_url: _history['wm_url'],
                           ),
                         ],
                       );
@@ -146,6 +148,7 @@ class _ExtractSelectScreenState extends State<ExtractSelectScreen> {
                       createdAt: DateFormat('dd MMMM yyyy, kk:mm a').format(_history['createdAt']),
                       type: _history['type'],
                       wm_size: _history['wm_size'],
+                      wm_url: _history['wm_url'],
                     );
                   },
                 );

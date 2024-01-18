@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:woodefender/models/Post.dart';
+import 'package:woodefender/screens/main_screen.dart';
 import 'package:woodefender/services/auth_service.dart';
 import 'package:woodefender/services/post_service.dart'; // Sesuaikan dengan nama file dan lokasi PostProvider Anda
 import 'package:image_picker/image_picker.dart';
@@ -80,7 +81,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Buat Postingan',
+          'Create a Post',
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 20
@@ -122,7 +123,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     ),
                     SizedBox(height: 8.0),
                     const Text(
-                      'Deskripsi',
+                      'Description',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -144,7 +145,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0),
                         ),
-                        hintText: 'Apa yang anda pikirkan?',
+                        hintText: "What's on your mind?",
                         hintStyle: TextStyle(
                           color: Colors.grey[400]
                         ),
@@ -164,7 +165,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         children: [
                           SizedBox(height: 8.0),
                           const Text(
-                            'Sumber',
+                            'Source',
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -184,7 +185,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey[300]!, width: 1.0),
                               ),
-                              hintText: 'Masukkan link sumber laporan',
+                              hintText: 'Enter link to the report source (Facebook, X, TikTok, Instagram or YouTube)',
                               hintStyle: TextStyle(
                                 color: Colors.grey[400]
                               ),
@@ -254,7 +255,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     );
 
                     if(widget.text != '') {
-                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const MainScreen(pageIndex: 1,),
+                        ),
+                      );
                     } else {
                       Navigator.pop(context, 'Success');
                     }
@@ -265,7 +271,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   }
                 },
                 child: Text(
-                  'Unggah',
+                  'Post',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: TextBtnColor,

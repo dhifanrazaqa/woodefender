@@ -196,10 +196,6 @@ class _ClassificationScreenState extends State<ClassificationScreen> {
                               elaImg = await sendImage(imagePath!);
                               
                               await processImage();
-
-                              setState(() {
-                                _isLoading = false;
-                              });
                               
                               if(classification != null) {
                                 final result = classification!.entries.toList();
@@ -218,6 +214,10 @@ class _ClassificationScreenState extends State<ClassificationScreen> {
                                     ),
                                   ),
                                 );
+                              
+                              setState(() {
+                                _isLoading = false;
+                              });
                               }
                             }
                           },

@@ -113,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     showConfirmationDialog(context);
                   },
                   child: const Text(
-                    'Keluar',
+                    'Sign Out',
                     style: TextStyle(
                       color: Colors.white
                     ),
@@ -138,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               fontWeight: FontWeight.w700
             ),
           ),
-          content: Text('Apakah kamu yakin ingin keluar?'),
+          content: Text('Are you sure want to Sign Out?'),
           actions: <Widget>[
             TextButton(
               style: ButtonStyle(
@@ -162,8 +162,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
+                visualDensity: VisualDensity.compact,
                 overlayColor: MaterialStatePropertyAll(Colors.grey[200]),
-                fixedSize: MaterialStatePropertyAll(Size(100, 40)),
+                fixedSize: MaterialStatePropertyAll(Size(120, 40)),
                 backgroundColor: MaterialStatePropertyAll(Colors.black),
               ),
               onPressed: () async {
@@ -176,7 +177,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               },
               child: const Text(
-                'Keluar',
+                'Sign Out',
                 style: TextStyle(
                   color: Colors.white
                 ),
